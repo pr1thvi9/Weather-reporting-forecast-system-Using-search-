@@ -1,0 +1,119 @@
+#include<stdlib.h>
+//creating user defined data type
+struct weather{
+    int date;
+    int max_temp;
+    int min_temp;
+    float windspeed;
+    float uvindex;
+    float precipitation;
+    float avg_temp;
+    float range_temp;
+    
+    
+};
+
+int main() {
+int i,j,c,flag=0;
+int n=0;
+struct weather t;
+printf("enter the number of days to know the forecast");
+scanf("%d",&n);
+struct weather forecast[n];
+while(1){
+int s;
+
+printf("menu\n1. add record\n2. display\n3. to search\n4. to sort \n5. end\n");
+scanf("%d",&c);
+ 
+
+
+
+switch(c){
+    
+   
+//creating array (forecast)
+case 1:
+for(int i=0;i<n;i++){
+    printf("enter the day");
+    scanf("%d",&forecast[i].date);
+    printf("enter max temperature");
+    scanf("%d",&forecast[i].max_temp);
+    printf("enter the min temparature");
+    scanf("%d",&forecast[i].min_temp);
+    printf("enter the wind speed");
+    scanf("%f",&forecast[i].windspeed);
+    printf("enter the uv index");
+    scanf("%f",&forecast[i].uvindex);
+    printf("enter the precipitation");
+    printf("\n");
+    scanf("%f",&forecast[i].precipitation);
+    forecast[i].avg_temp=((forecast[i].max_temp+forecast[i].min_temp)/2);
+    forecast[i].range_temp=(forecast[i].max_temp-forecast[i].min_temp);
+}
+break;
+// 
+case 2:
+   // Display weather report
+    printf("\n================ WEATHER REPORT (Sorted by Avg Temp) ================\n");
+printf("%-5s %-12s %-15s %-15s %-15s %-10s %-12s %-12s %-12s\n",
+           "No", "Day", "Temp Range (°C)", "Max Temp (°C)", 
+           "Min Temp (°C)", "Avg Temp", "Wind (km/h)", "UV Index", "Precip (mm)");
+  for (i = 0; i < n; i++) {
+printf("%-5d %-15d %-15.2f %-15d %-15d %-10.2f %-12.2f %-12.2f %-12.2f\n",
+               i + 1,
+            forecast[i].date,
+            forecast[i].range_temp,
+            forecast[i].max_temp,
+            forecast[i].min_temp,
+            forecast[i].avg_temp,
+            forecast[i].windspeed,
+            forecast[i].uvindex,
+            forecast[i].precipitation);
+    }
+
+    printf("====================================================================\n");
+break;
+// for searching
+
+ case 3:
+printf("enter the day to know the weather forecast");
+scanf("%d",&s);
+for(int i=0;i<n;i++){
+    if(forecast[i].date==s){
+        printf("%-5s %-12s %-15s %-15s %-15s %-10s %-12s %-12s %-12s\n",
+           "No", "Day", "Temp Range (°C)", "Max Temp (°C)", 
+           "Min Temp (°C)", "Avg Temp", "Wind (km/h)", "UV Index", "Precip (mm)");
+      printf("%-5d %-15d %-15.2f %-15d %-15d %-10.2f %-12.2f %-12.2f %-12.2f\n",
+               i + 1,
+            forecast[i].date,
+            forecast[i].range_temp,
+            forecast[i].max_temp,
+            forecast[i].min_temp,
+            forecast[i].avg_temp,
+            forecast[i].windspeed,
+            forecast[i].uvindex,
+            forecast[i].precipitation);  
+    }
+}
+break;
+case 4:
+//to sort
+for(int i=0;i<n-1;i++){
+    for(j=0;j<n-i-1;j++){
+        if(forecast[j].avg_temp>forecast[j+1].avg_temp){
+            t=forecast[j];
+            forecast[j]=forecast[j+1];
+            forecast[j+1]=t;
+            }
+    }
+}
+printf("use display option to display sorted");
+break;
+case 5:
+exit(0);
+break;
+}
+}
+    return 0;
+}
